@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module Procesamiento_Entradas(input wire btnL, btnC, btnU, btnD, btnR,
-                              output wire [2:0] ALUControl,
-                              output wire [1:0] Cantidad);
+                              output reg [2:0] ALUControl,
+                              output reg [1:0] Cantidad);
 
 always @* begin
     case ({btnL, btnC, btnR}) // Concatenamos los botones para simplificar condiciones
