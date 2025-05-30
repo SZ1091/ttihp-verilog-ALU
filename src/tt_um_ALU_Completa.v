@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module ALU_Completa(input wire [15:0] sw,
+module tt_um_ALU_Completa(input wire [15:0] sw,
                     input wire btnL, btnC, btnU, btnD, btnR, ui_7, // ui_7 es el interruptor
                     output wire [7:0] uo); // Salidas ajustadas
 
