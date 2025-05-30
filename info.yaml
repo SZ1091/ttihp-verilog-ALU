@@ -27,6 +27,7 @@ project:
     - "Negative_1.v"
     - "Overflow_1.v"
     - "Procesamiento_Entradas.v"
+    - "Procesamiento_Entradas2.v"
     - "SL1.v"
     - "SR1.v"
     - "Shifters_1.v"
@@ -40,14 +41,14 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "sw[7:0]"  # Parte baja de A
-  ui[1]: "sw[15:8]" # Parte alta de B
-  ui[2]: "btnL"      # Botón izquierdo
-  ui[3]: "btnC"      # Botón central
-  ui[4]: "btnU"      # Botón arriba
-  ui[5]: "btnD"      # Botón abajo
-  ui[6]: "btnR"      # Botón derecho
-  ui[7]: "ui_7"      # Interruptor para alternar entre resultado e indicadores
+  ui[0]: "sw[0]"  
+  ui[1]: "sw[1]" 
+  ui[2]: "sw[2]"      
+  ui[3]: "sw[3]"      
+  ui[4]: "sw[4]"      
+  ui[5]: "sw[5]"      
+  ui[6]: "sw[6]"      
+  ui[7]: "sw[7]"      
 
   # Outputs
   uo[0]: "led[0]"    # Bit 0 del resultado / Carry (según ui_7)
@@ -60,14 +61,14 @@ pinout:
   uo[7]: "led[7]"    # Bit 7 del resultado (si ui_7=0)
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "btnL"
+  uio[1]: "btnC"
+  uio[2]: "btnU"
+  uio[3]: "btnD"
+  uio[4]: "btnR"
+  uio[5]: "ui_7"
+  uio[6]: "uio_6"
+  uio[7]: "uio_7"
 
 # Do not change!
 yaml_version: 6
