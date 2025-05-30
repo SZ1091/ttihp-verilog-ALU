@@ -26,6 +26,7 @@ project:
     - "Multiplexor_2.v"
     - "Negative_1.v"
     - "Overflow_1.v"
+    - "Procesamiento.v"
     - "Procesamiento_Entradas.v"
     - "Procesamiento_Entradas2.v"
     - "SL1.v"
