@@ -1,25 +1,45 @@
 `timescale 1ns / 1ps
+`default_nettype none
 
-module tt_um_SZ1091_ALU_Completa(input wire [7:0] sw,
-                    input wire btnL, btnC, btnU, btnD, btnR, ui_7, uio_7, uio_6, // ui_7 es el interruptor
-                    output wire [7:0] uo); // Salidas ajustadas
+module tt_um_SZ1091_ALU_Completa (
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire ena,
+    input  wire clk,
+    input  wire rst_n
+);
 
-wire [1:0] Cantidad;
-wire [2:0] ALUControl;
-wire [7:0] resultado;
-wire Carry, Overflow, Negative, Zero;
-wire [7:0] A, B;
+// Mapeo de señales entre interfaz estándar y el módulo Procesamiento
+wire [7:0] sw = ui_in;
 
-// Procesamiento de entradas
-Procesamiento_Entradas Entradas (.btnU(btnU), .btnD(btnD), .btnL(btnL), .btnR(btnR), .btnC(btnC), .ALUControl(ALUControl), .Cantidad(Cantidad));
+wire btnL  = uio_in[0];
+wire btnC  = uio_in[1];
+wire btnU  = uio_in[2];
+wire btnD  = uio_in[3];
+wire btnR  = uio_in[4];
+wire ui_7  = uio_in[5];
+wire uio_6 = uio_in[6];
+wire uio_7 = uio_in[7];
 
-//Procesamiento entradas2
-  Procesamiento_Entradas2 Entradas2(.sw(sw), .uio_7(uio_7), .uio_6(uio_6), .A(A), .B(B));
+wire [7:0] uo;
 
-// ALU con flags
-  ALU_S_Flags ALU_F (.A(A), .B(B), .ALUControl(ALUControl), .Cantidad(Cantidad), .Resultado(resultado), .Carry(Carry), .Overflow(Overflow), .Negative(Negative), .Zero(Zero));
+Procesamiento proc (
+    .sw(sw),
+    .btnL(btnL), .btnC(btnC), .btnU(btnU), .btnD(btnD), .btnR(btnR),
+    .ui_7(ui_7),
+    .uio_7(uio_7),
+    .uio_6(uio_6),
+    .uo(uo)
+);
 
-// Multiplexor para cambiar entre salida de resultado e indicadores
-assign uo = (ui_7 == 0) ? resultado : {4'b0, Carry, Overflow, Negative, Zero};
+assign uo_out = uo;
+
+// Como no usas uio_out ni uio_oe en tu diseño, se asignan a cero
+assign uio_out = 8'b0;
+assign uio_oe  = 8'b0;
 
 endmodule
+
