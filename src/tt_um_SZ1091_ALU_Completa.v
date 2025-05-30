@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-`default_nettype none
 
 module tt_um_SZ1091_ALU_Completa (
     input  wire [7:0] ui_in,
