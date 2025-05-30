@@ -1,7 +1,7 @@
 module ALU_S(
     input wire [7:0] A, B,
     input wire [2:0] ALUControl,
-    input wire [2:0] Cantidad,       // Ahora 3 bits
+    input wire [1:0] Cantidad,       // Ahora 3 bits
     output wire [7:0] S_M,
     output wire [7:0] Resultado,
     output wire C_out
