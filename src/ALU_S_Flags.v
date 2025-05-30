@@ -1,7 +1,7 @@
 module ALU_S_Flags(
     input wire [7:0] A, B,
     input wire [2:0] ALUControl,
-    input wire [2:0] Cantidad,  // Ajustado a 3 bits como el módulo ALU_S
+    input wire [1:0] Cantidad,  // Ajustado a 3 bits como el módulo ALU_S
     output wire [7:0] Resultado,
     output wire Carry,
     output wire Overflow,
