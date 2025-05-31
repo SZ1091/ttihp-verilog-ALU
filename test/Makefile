@@ -1,6 +1,8 @@
 # Makefile
 # See https://docs.cocotb.org/en/stable/quickstart.html for more info
 
+export COCOTB_RESOLVE_X=ZERO
+
 # defaults
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
@@ -38,7 +40,9 @@ TOPLEVEL = tb
 # MODULE is the basename of the Python test file
 MODULE = test
 
-export COCOTB_RESOLVE_X=0
+MAKEFILE_SIM := $(shell cocotb-config --makefiles 2>/dev/null)
+ifeq ($(MAKEFILE_SIM),)
+$(error cocotb-config no pudo encontrar Makefile.sim. ¿Está cocotb instalado correctamente?)
+endif
 
-# include cocotb's make rules to take care of the simulator setup
-include $(shell cocotb-config --makefiles)/Makefile.sim
+include $(MAKEFILE_SIM)/Makefile.sim
