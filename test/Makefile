@@ -40,12 +40,8 @@ TOPLEVEL = tb
 # MODULE is the basename of the Python test file
 MODULE = test
 
-MAKEFILE_SIM := $(shell cocotb-config --makefiles 2>/dev/null)
-ifeq ($(MAKEFILE_SIM),)
-$(error cocotb-config no pudo encontrar Makefile.sim. ¿Está cocotb instalado correctamente?)
-endif
-
-include $(MAKEFILE_SIM)/Makefile.inc
+COCOTB_MAKEFILE := $(shell cocotb-config --makefiles 2>/dev/null || echo /usr/local/lib/python3.11/site-packages/cocotb/share/makefiles)
+include $(COCOTB_MAKEFILE)/Makefile.sim
 
 clean:
 	rm -rf sim_build results.xml
