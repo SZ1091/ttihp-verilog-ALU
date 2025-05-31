@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+Esta es una ALU de 8 bits con fines puramente académicos.
 
 ## How to test
 
-Explain how to use your project
+Ingresar dos números de 8 bits, evaluar el resultado según la operación de la ALU escogida.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Uso de switches para el manejo de los bits de los buses, leds para las salidas.
