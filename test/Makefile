@@ -46,3 +46,6 @@ $(error cocotb-config no pudo encontrar Makefile.sim. ¿Está cocotb instalado c
 endif
 
 include $(MAKEFILE_SIM)/Makefile.inc
+
+clean:
+	rm -rf sim_build results.xml
