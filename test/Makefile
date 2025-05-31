@@ -40,4 +40,8 @@ TOPLEVEL = tb
 # MODULE is the basename of the Python test file
 MODULE = test
 
+COCOTB_MAKEFILE ?= $(COCOTB_MAKEFILE)
 include $(COCOTB_MAKEFILE)/Makefile.sim
+
+clean:
+	rm -rf sim_build results.xml
