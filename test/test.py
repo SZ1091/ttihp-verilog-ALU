@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-os.environ.pop("COCOTB_RESOLVE_X", None)
+os.environ.pop("COCOTB_RESOLVE_X", 0)
 
 import cocotb
 from cocotb.clock import Clock
