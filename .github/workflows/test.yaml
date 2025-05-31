@@ -21,7 +21,11 @@ jobs:
 
       - name: Install Python packages
         shell: bash
-        run: pip install -r test/requirements.txt
+        run: |
+          pip install cocotb
+          echo "COCOTB_MAKEFILE=$(python3 -c 'import cocotb, os; print(os.path.dirname(cocotb.__file__) + \"/share/makefiles\")')" >> $GITHUB_ENV
+
+
 
       - name: Run tests
         run: |
