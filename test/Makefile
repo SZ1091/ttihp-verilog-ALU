@@ -42,6 +42,3 @@ MODULE = test
 
 COCOTB_MAKEFILE := $(shell python3 -c 'import cocotb; print(cocotb.__path__[0] + "/share/makefiles")')
 include $(COCOTB_MAKEFILE)/Makefile.sim
-
-clean:
-	rm -rf sim_build results.xml
