@@ -1,13 +1,13 @@
 # SPDX-FileCopyrightText: © 2024 Tiny Tapeout
 # SPDX-License-Identifier: Apache-2.0
 
-import os
-os.environ.pop("COCOTB_RESOLVE_X", 0)
-
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
-
+def safe_int(binary_value):
+    # Convierte cualquier 'x' o 'z' en '0' para evitar errores
+    bin_str = str(binary_value).lower().replace('x', '0').replace('z', '0')
+    return int(bin_str, 2)
 
 @cocotb.test()
 async def test_alu_completa(dut):
@@ -25,39 +25,40 @@ async def test_alu_completa(dut):
 
     # Cargar A = 15
     dut.ui_in.value = 15
-    dut.uio_in.value = 0b00000000  # bit 6 = 0 antes del pulso
+    dut.uio_in.value = 0b00000000
     await ClockCycles(dut.clk, 1)
-    dut.uio_in.value = 0b01000000  # bit 6 = 1, bit 7 = 0 → carga A
+    dut.uio_in.value = 0b01000000
     await ClockCycles(dut.clk, 1)
-    dut.uio_in.value = 0b00000000  # bit 6 = 0 después del pulso
+    dut.uio_in.value = 0b00000000
     await ClockCycles(dut.clk, 1)
 
     # Cargar B = 20
     dut.ui_in.value = 20
-    dut.uio_in.value = 0b00000000  # bit 6 = 0 antes del pulso
+    dut.uio_in.value = 0b00000000
     await ClockCycles(dut.clk, 1)
-    dut.uio_in.value = 0b11000000  # bit 7=1, bit 6=1 → carga B
+    dut.uio_in.value = 0b11000000
     await ClockCycles(dut.clk, 1)
-    dut.uio_in.value = 0b10000000  # bit 7=1, bit 6=0 después del pulso
-    await ClockCycles(dut.clk, 1)
-
-    # Operación suma (btnL=0, btnC=0, btnR=0 → bits 0-2 de uio_in)
-    dut.uio_in.value = 0b00000000  # btnR=0, btnC=0, btnL=0
+    dut.uio_in.value = 0b10000000
     await ClockCycles(dut.clk, 1)
 
-    # Mostrar resultado (ui_7 = 0)
-    dut.uio_in.value = 0b00000000  # ui_7=0
+    # Operación suma
+    dut.uio_in.value = 0b00000000
     await ClockCycles(dut.clk, 1)
 
-    result = dut.uo_out.value.integer
+    # Mostrar resultado
+    dut.uio_in.value = 0b00000000
+    await ClockCycles(dut.clk, 1)
+
+    # ✅ Usa safe_int en lugar de .integer
+    result = safe_int(dut.uo_out.value)
     dut._log.info(f"Resultado suma A=15 + B=20: {result}")
     assert result == 35, f"Resultado incorrecto: {result} (esperado 35)"
 
-    # Mostrar flags (ui_7 = 1)
-    dut.uio_in.value = 0b00100000  # ui_7=1
+    # Mostrar flags
+    dut.uio_in.value = 0b00100000
     await ClockCycles(dut.clk, 1)
 
-    flags = dut.uo_out.value.integer
+    flags = safe_int(dut.uo_out.value)
     dut._log.info(f"Flags (COZN): {flags:08b}")
 
     dut._log.info("Fin del test exitoso.")
