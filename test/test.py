@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: © 2024 Tiny Tapeout
 # SPDX-License-Identifier: Apache-2.0
 
+import os
+os.environ.pop("COCOTB_RESOLVE_X", None)
+
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
