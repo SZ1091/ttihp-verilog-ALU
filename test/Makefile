@@ -43,9 +43,5 @@ MODULE = test
 COCOTB_MAKEFILE := $(shell cocotb-config --makefiles 2>/dev/null || echo /usr/local/lib/python3.11/site-packages/cocotb/share/makefiles)
 include $(COCOTB_MAKEFILE)/Makefile.sim
 
-.PHONY: clean
-
 clean:
-	rm -rf sim_build
-	rm -f results.xml
-
+	rm -rf sim_build results.xml
