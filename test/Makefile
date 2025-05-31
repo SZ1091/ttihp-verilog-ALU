@@ -1,7 +1,7 @@
 # Makefile
 # See https://docs.cocotb.org/en/stable/quickstart.html for more info
 
-export COCOTB_RESOLVE_X=0
+export COCOTB_RESOLVE_X=ZERO_OR_LOGIC
 
 # defaults
 SIM ?= icarus
