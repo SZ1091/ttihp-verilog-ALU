@@ -7,34 +7,57 @@ from cocotb.triggers import ClockCycles
 
 
 @cocotb.test()
-async def test_project(dut):
-    dut._log.info("Start")
+async def test_alu_completa(dut):
+    dut._log.info("Inicio del test")
 
-    # Set the clock period to 10 us (100 KHz)
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
 
     # Reset
-    dut._log.info("Reset")
-    dut.ena.value = 1
-    dut.ui_in.value = 0
-    dut.uio_in.value = 0
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
+    dut.ena.value = 1
+    await ClockCycles(dut.clk, 2)
     dut.rst_n.value = 1
+    await ClockCycles(dut.clk, 2)
 
-    dut._log.info("Test project behavior")
-
-    # Set the input values you want to test
-    dut.ui_in.value = 20
-    dut.uio_in.value = 30
-
-    # Wait for one clock cycle to see the output values
+    # Cargar A = 15
+    dut.ui_in.value = 15
+    dut.uio_in.value = 0b00000000  # bit 6 = 0 antes del pulso
+    await ClockCycles(dut.clk, 1)
+    dut.uio_in.value = 0b01000000  # bit 6 = 1, bit 7 = 0 → carga A
+    await ClockCycles(dut.clk, 1)
+    dut.uio_in.value = 0b00000000  # bit 6 = 0 después del pulso
     await ClockCycles(dut.clk, 1)
 
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    assert dut.uo_out.value == 50
+    # Cargar B = 20
+    dut.ui_in.value = 20
+    dut.uio_in.value = 0b00000000  # bit 6 = 0 antes del pulso
+    await ClockCycles(dut.clk, 1)
+    dut.uio_in.value = 0b11000000  # bit 7=1, bit 6=1 → carga B
+    await ClockCycles(dut.clk, 1)
+    dut.uio_in.value = 0b10000000  # bit 7=1, bit 6=0 después del pulso
+    await ClockCycles(dut.clk, 1)
+
+    # Operación suma (btnL=0, btnC=0, btnR=0 → bits 0-2 de uio_in)
+    dut.uio_in.value = 0b00000000  # btnR=0, btnC=0, btnL=0
+    await ClockCycles(dut.clk, 1)
+
+    # Mostrar resultado (ui_7 = 0)
+    dut.uio_in.value = 0b00000000  # ui_7=0
+    await ClockCycles(dut.clk, 1)
+
+    result = dut.uo_out.value.integer
+    dut._log.info(f"Resultado suma A=15 + B=20: {result}")
+    assert result == 35, f"Resultado incorrecto: {result} (esperado 35)"
+
+    # Mostrar flags (ui_7 = 1)
+    dut.uio_in.value = 0b00100000  # ui_7=1
+    await ClockCycles(dut.clk, 1)
+
+    flags = dut.uo_out.value.integer
+    dut._log.info(f"Flags (COZN): {flags:08b}")
+
+    dut._log.info("Fin del test exitoso.")
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
