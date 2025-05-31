@@ -3,6 +3,8 @@ on: [push, workflow_dispatch]
 jobs:
   test:
     runs-on: ubuntu-24.04
+    env:
+      COCOTB_RESOLVE_X: ZERO
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -22,9 +24,6 @@ jobs:
       - name: Install Python packages
         shell: bash
         run: pip install -r test/requirements.txt
-
-      - name: Set env var to resolve 'x' bits as 0
-        run: echo "COCOTB_RESOLVE_X=0" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
