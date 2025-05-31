@@ -36,7 +36,6 @@ Procesamiento proc (
 
 assign uo_out = uo;
 
-// Como no usas uio_out ni uio_oe en tu diseño, se asignan a cero
 assign uio_out = 8'b0;
 assign uio_oe  = 8'b0;
 
