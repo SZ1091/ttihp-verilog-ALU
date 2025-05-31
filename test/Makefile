@@ -45,4 +45,4 @@ ifeq ($(MAKEFILE_SIM),)
 $(error cocotb-config no pudo encontrar Makefile.sim. ¿Está cocotb instalado correctamente?)
 endif
 
-include $(MAKEFILE_SIM)/Makefile.sim
+include $(MAKEFILE_SIM)/Makefile.inc
