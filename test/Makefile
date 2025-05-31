@@ -40,7 +40,7 @@ TOPLEVEL = tb
 # MODULE is the basename of the Python test file
 MODULE = test
 
-COCOTB_MAKEFILE ?= $(COCOTB_MAKEFILE)
+COCOTB_MAKEFILE := $(shell python3 -c 'import cocotb; print(cocotb.__path__[0] + "/share/makefiles")')
 include $(COCOTB_MAKEFILE)/Makefile.sim
 
 clean:
