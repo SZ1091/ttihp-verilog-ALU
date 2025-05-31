@@ -1,7 +1,7 @@
 # Makefile
 # See https://docs.cocotb.org/en/stable/quickstart.html for more info
 
-export COCOTB_RESOLVE_X=ZERO_OR_LOGIC
+export COCOTB_RESOLVE_X=ZERO
 
 # defaults
 SIM ?= icarus
@@ -40,6 +40,5 @@ TOPLEVEL = tb
 # MODULE is the basename of the Python test file
 MODULE = test
 
-COCOTB_MAKEFILE := $(shell cocotb-config --makefiles)
-include $(COCOTB_MAKEFILE)/Makefile.sim
+include $(shell cocotb-config --makefiles)/Makefile.sim
 
