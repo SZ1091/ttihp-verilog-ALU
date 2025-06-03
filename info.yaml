@@ -52,14 +52,14 @@ pinout:
   ui[7]: "sw[7]"      
 
   # Outputs
-  uo[0]: "led[0]"    # Bit 0 del resultado / Carry (según ui_7)
-  uo[1]: "led[1]"    # Bit 1 del resultado / Overflow (según ui_7)
-  uo[2]: "led[2]"    # Bit 2 del resultado / Negative (según ui_7)
-  uo[3]: "led[3]"    # Bit 3 del resultado / Zero (según ui_7)
-  uo[4]: "led[4]"    # Bit 4 del resultado (si ui_7=0)
-  uo[5]: "led[5]"    # Bit 5 del resultado (si ui_7=0)
-  uo[6]: "led[6]"    # Bit 6 del resultado (si ui_7=0)
-  uo[7]: "led[7]"    # Bit 7 del resultado (si ui_7=0)
+  uo[0]: "led[0]"    
+  uo[1]: "led[1]"    
+  uo[2]: "led[2]"    
+  uo[3]: "led[3]"    
+  uo[4]: "led[4]"    
+  uo[5]: "led[5]"    
+  uo[6]: "led[6]"    
+  uo[7]: "led[7]"    
 
   # Bidirectional pins
   uio[0]: "btnL"
